@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TextField } from "@mui/material";
 import { SubmitButton, SubmitButtonIcon } from './Form.styles';
 import { TForm } from './Form.types';
@@ -15,6 +15,10 @@ const Form = ({handleSubmitCallback}: TForm) => {
   const [holes, setHoles] = useState(8);
   const [holesError, setHolesError] = useState('');
 
+  useEffect(() => {
+    handleHoles(holes);
+  }, [sizeX, sizeY])
+
   const handleSize = (setSize, setSizeError) => (ev) => {
     const value = parseInt(ev.target.value);
     setSize(value)
@@ -29,14 +33,13 @@ const Form = ({handleSubmitCallback}: TForm) => {
     setSizeError('');
   }
 
-  const handleHoles = (ev) => {
-    const value = parseInt(ev.target.value);
+  const handleHoles = (value: number) => {
     setHoles(value)
     if (value < 4) {
       setHolesError('At least 4 holes');
       return;
     }
-    if (value > (sizeX - 1) * (sizeY - 1)) {
+    if (value > (sizeX * sizeY - 9)) {
       setHolesError('Too much holes for selected board size');
       return;
     }
@@ -69,7 +72,7 @@ const Form = ({handleSubmitCallback}: TForm) => {
                  value={holes}
                  error={!!holesError}
                  helperText={holesError}
-                 onChange={handleHoles}
+                 onChange={(ev) => handleHoles(parseInt(ev.target.value))}
       />
 
       <SubmitButton

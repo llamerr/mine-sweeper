@@ -38,7 +38,13 @@ const Board = ({sizeX, sizeY, holes, handleGameEnd}: TBoard) => {
 
     // fill holes
     let generatedCount = 0;
+    let limit = 0;
     while (generatedCount < holes) {
+      limit++;
+      if (limit > 5000) {
+        console.log(board);
+        throw new Error('limit debug')
+      }
       let x = Math.floor(Math.random() * sizeX);
       let y = Math.floor(Math.random() * sizeY);
       if (!board[x][y].isHole && !board[x][y].isStarterCell) {
