@@ -41,6 +41,7 @@ const Board = ({sizeX, sizeY, holes, handleGameEnd}: TBoard) => {
     let limit = 0;
     while (generatedCount < holes) {
       limit++;
+      // since I'm not using eslint no-magic-numbers, let it be just 5000
       if (limit > 5000) {
         console.log(board);
         throw new Error('limit debug')
