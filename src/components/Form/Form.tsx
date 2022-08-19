@@ -39,7 +39,10 @@ const Form = ({handleSubmitCallback}: TForm) => {
       setHolesError('At least 4 holes');
       return;
     }
-    if (value > (sizeX * sizeY - 9)) {
+    const ADJACENT_CELLS_NUMBER = 9;
+    // and here goes that bug I discovered in the game 5x5:16 at part3 commit
+    // theirs limit is wrong. it should be -1 of theirs limit - 5x5:15
+    if (value > (sizeX * sizeY - ADJACENT_CELLS_NUMBER - 1)) {
       setHolesError('Too much holes for selected board size');
       return;
     }
