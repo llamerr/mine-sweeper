@@ -1,4 +1,9 @@
 import styled from '@emotion/styled';
+import AlbumIcon from '@mui/icons-material/Album';
+
+export const BombIcon = styled(AlbumIcon)`
+  font-size: 1.5rem;
+`
 
 type TableProps = {
   disabled: boolean
@@ -15,7 +20,9 @@ export const Table = styled.table<TableProps>`
   }
 
   td {
-    padding: .5rem;
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
     border: solid;
     border-collapse: collapse;
     cursor: pointer;
@@ -28,8 +35,13 @@ export const Table = styled.table<TableProps>`
 type CellProps = {
   isOpen?: boolean;
   isHole?: boolean;
+  isMarked?: boolean;
 }
 
 export const Cell = styled.td<CellProps>`
-  background-color: ${props => (!props.isOpen ? `lightgray` : props.isHole ? 'lightcoral' : 'lightgreen')};
+  background-color: ${props => (
+    props.isMarked ? 'darkorange' 
+    : !props.isOpen ? `lightgray`
+    : props.isHole ? 'lightcoral'
+    : 'lightgreen')};
 `
