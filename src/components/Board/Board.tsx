@@ -160,9 +160,9 @@ const Board = ({sizeX, sizeY, holes, handleGameEnd}: TBoard) => {
                         markCell(indexX, indexY);
                       }}
                 >
-                  {isGameLost && cell.isHole && <BombIcon />}
-                  {isGameLost && !cell.isOpen && "\u00A0"}
-                  {!cell.isOpen ? (!isGameLost && "?")
+                  {(isGameLost || isGameWon) && cell.isHole && <BombIcon />}
+                  {(isGameLost || isGameWon) && !cell.isOpen && "\u00A0"}
+                  {!cell.isOpen ? (!(isGameLost || isGameWon) && "?")
                     : (cell.isHole ? (!isGameLost && 'x')
                     : (cell.count > 0 ? cell.count : "\u00A0"))}
                 </Cell>
